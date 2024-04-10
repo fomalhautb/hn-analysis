@@ -1,4 +1,4 @@
-# I analyized 4 millions HN posts and used the tricks I found to get to the top Show HN of the day
+# I analyzed 4 millions HN posts and used the tricks I found to get to the top Show HN of the day
 
 ## A failed launch
 

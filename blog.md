@@ -1,87 +1,172 @@
-# I analyzed 4 millions HN posts and used the tricks I found to get to the top Show HN of the day
+# I Analyzed 4 Million HN Posts, and Here’s What I Found
 
-## A failed launch
+## A Failed Launch
 
-Last week, my friend Stan has built a really cool project pgmock, which is an in-memory postgres written in WebAssembly for unit testing. I have been reading hacker news for a while and I knew this is something that HN people would love. However, when we launched it, it only got 3 upvotes. It was very frustrating and also hard to believe that something like this gets no attention on hackernews just based on my intuition. So I hypothesize is that we didn't launch it correctly.
+Last week, my friend Konsti built a really cool project called pgmock, an in-memory Postgres written in WebAssembly for unit testing. Having followed Hacker News (HN) for quite some time, I was confident this was something the HN community would love. However, when we launched it, it only garnered 3 upvotes (2 from ourselves). This was frustrating and hard to believe. Based on my intuition, this kind of project should have gained more attention. So, I hypothesized that we didn’t launch it correctly.
 
-Then the natural question is: what is a better way to launch? I decided to download the HN post dump and try to find out if there are some patterns. And it was suprising to me that there are some patters that are super obvious and strong.
+The natural question then was: what is a better way to launch? I decided to download the HN post dump and analyze it to see if there were any patterns. Surprisingly, I found some that were quite obvious and strong.
 
-We launched again and applied some of these tricks. This time it was a huge success and we got more than 300 upvotes within 24 hours and became the top 1 post on Show HN for that day.
+We relaunched, applying some of these tricks. This time, it was a huge success, and we received more than 300 upvotes within 24 hours, making it the top post on Show HN for the day.
 
-If these sound interesting to you, now I am going reveal the tricks.
+That gave us a lot of confidence and motivation, we also relaunched our main project Stack Auth, which previously only got 2 upvotes, and it also became one of the top posts on Show HN for the day with 150+ upvotes.
 
-## Some basic statistics of HN posts
+## Some Basic Statistics of HN Posts
 
-There are around 4 million posts between 2011 and 2022 on hacker news, around 120k of them are Show HN. The average upvotes of posts is 15.2. Show HN generally have more upvotes of an average 17.0.
+There were around 4 million posts on Hacker News between 2011 and 2022, with around 120k of them being Show HN posts. The average number of upvotes for posts is 15.2, and Show HN posts generally have more, averaging 17.0. (**Remember the number 17.0** as everything later will be compared to it.)
 
-Since our goal is launch successfully, we mainly focus on Show HN posts from now on. 
+Since our goal is to launch successfully, we will mainly focus on Show HN posts from now on.
 
-The first trick I found is that the Show HN posts with a link have a higher average upvotes of 17.3, compare to the average upvotes of 11.2 for posts without a link. So **always post with a link**
+The first trick I discovered is that Show HN posts with a link have a higher average number of upvotes (17.3) compared to those without a link (11.2). So, **always post with a link**.
 
-We mentioned before that Show HN posts have an average of 17.0 upvotes, doesn't sound too bad. However, **the median is a painfully low 3.0**. That means half of the posts don't even get more than 3 upvotes and our first launch is already an average launch. That is very sad. If we plot the score distribution, it looks like this:
+The average of 17.0 doesn’t sound too bad. However, **the median is a painfully low 3.0**. This means half of the posts don't get more than 3 upvotes, signifying our first launch was actually average. That’s quite disheartening. If we plot the score distribution, it looks like this:
 
 ![plot](./imgs/score_num_posts.png)
 
-The power law is so strong you can't even see the data clearly anymore. If we limit the score range from 0 to 100, the power law is still crazy
+The power law is so strong you can’t even see the data clearly anymore. If we limit the score range from 0 to 100, the power law remains extreme:
 
 ![plot](./imgs/score_num_posts_range.png)
 
-**Only around 19% of the posts get more than 10 upvotes, 4% get more than 100 upvotes, and 0.8% get more than 300 upvotes.**
+**Only around 19% of posts get more than 10 upvotes, 4% get more than 100 upvotes, and 0.8% get more than 300 upvotes.**
 
-One learning from this is that don't be too disappointed if your HN post didn't get any traction, that is actually the most possible outcome.
-
+One takeaway from this is not to be too disappointed if your HN post doesn't gain traction—this is actually the most likely outcome.
 
 ## Timing
 
-There are some posts on HN saying what is the best time to launch already, but I didn't see any one backing this with data. So I analyized the timing of posts and can confirm that most of the common agreement on the best timing are indeed correct
+There are some existing posts on HN discussing the best time to launch, but few back this up with data. I analyzed the timing of posts and can confirm that most conventional wisdom about the best timing is indeed correct.
 
-Here is the average score on which week day you post:
+Here’s the average score by the day of the week you post:
 
 ![plot](./imgs/score_weekday.png)
 
-We can see that weekend is inded the best time to post.
+We can see that weekends are indeed the best time to post.
 
-If we plot the day time of posts in California PT time, we can also see that posts posted in the morning between 4AM and AM have the highest average score
+If we plot the time of day for posts in California PT time, we can also observe that posts published in the early morning between 4 AM and 6 AM have the highest average scores:
 
 ![plot](./imgs/score_hour.png)
 
-Even though the common agreement on the HN for best posting time is indeed correct, but no one has given a good explanetion of why these times are better. I will give my best guess on why:
+Though the common agreement on HN’s best posting time is likely correct, no one has provided a good explanation for why these times are better. Here is my best guess:
 
-- Why morning is better: This is more of a subjective guess. Most people start their day by reading HN, if you post at that time, it is more likely that you will get intense attention in a short period of time, so it is easier to be ranked better by the algorithm. Also most of the posts are posted between 6AM and 10AM. If you do slightly ealier than them, you will get less competition.
+- **Why mornings are better**: This is more of a subjective guess. Most people start their day by reading HN; if you post at that time, you’re more likely to get intense attention in a short period, which can result in better ranking by the algorithm. Also, most posts are made between 6 AM and 10 AM. If you post slightly earlier, you’ll face less competition.
 
-![plot](./imgs/posts_hour.png)
+  ![plot](./imgs/posts_hour.png)
 
-- Why weekend is better: The reason might be relatively simple, it is because the less people post on the weekend, so you have less competition and more likely to get more attention. Here is the graph of number of posts in each weekday:
+- **Why weekends are better**: The reason might be simple. Fewer people post on the weekends, so you face less competition and are more likely to get noticed. Here’s the graph of the number of posts each weekday:
 
-![plot](./imgs/posts_weekday.png)
+  ![plot](./imgs/posts_weekday.png)
 
-Conclusion: **Always post on weekend between 4AM and 6AM PT time**
+Conclusion: **Always post on weekends between 4 AM and 6 AM PT time.**
 
 ## Title
 
-Now is the most interesting part: what kind of titles are the best? Let's first start from analyzing the length. Here is a plot of the average score of each title word count:
+Now for the most interesting part: what kind of titles work best? Let’s start by analyzing the length. Here’s a plot of the average score for each title word count:
 
-### Title length
+### Title Length
 
 ![plot](./imgs/title_length_score.png)
 
-We can see that very short and very long titles perform better. The reason for this might be that most posts have a medium length of title, so if you have very short or very long titles, you can stand out more:
+We can see that both very short and very long titles perform better. The reason might be that most posts have a medium-length title, so having a very short or very long title helps you stand out more:
 
 ![plot](./imgs/title_length_count.png)
 
-Conclusion: **Write titles that are as long as the length limit**
+The longer titles are easier to write and generally have slightly higher average scores, so my recommendation is to just max out the title length.
 
-### Title cases
+Conclusion: **Write titles that are as long as the length limit.**
 
-It is quite suprising that all capital lowercase titles (like "This is a title") have a higher average upvotes of 17.5 than all capital uppercase titles (like "This Is A Title") of 14.6. My guess is that HN people are very ads avert and captial uppercase titles give people a marketing vibe.
+### Title Case
 
-Conclusion: **Write lower-cased titles**
+Interestingly, all-lowercase titles (e.g., "this is a title") have higher average upvotes (17.5) than titles using title case (e.g., "This Is A Title"), which average 14.6 upvotes. My guess is that HN users are averse to ads, and title-case titles give a marketing vibe.
 
-### Title keywords
+Conclusion: **Write lowercase titles.**
 
-One pattern I noticed when browsing hacker news is that it seems like posts with "I built ..." or "I ..." have more stars than normal posts. Is that really the case? I ran an analysis and suprisingly, **Show HN posts with "I" in it has a much higher average upvotes of 34.4 instead of 17.0.** This is an increadabily large advantage.
+### Keywords in Titles
 
-So what are all the words that gives much higher average upvotes? I lemmatized all the words and counted the average scores of all lemmas that has more than 100 occurance. And this is the list of words:
+Browsing HN, it seemed like posts with phrases like "I built ..." or "I ..." received more upvotes. Testing this hypothesis revealed that **Show HN posts containing "I" have much higher average upvotes (34.4) compared to the overall average (17.0).** This is a significant advantage.
+
+So what are some other words that correlate with higher average upvotes? I lemmatized all the words and calculated the average scores of lemmas with more than 100 occurrences. Here’s the top 20 list of words:
+
+```
+Top 100 words by average score (word, avg_score, number_of_occurrences):
+im 48.46 304
+wrote 45.00 325
+altern 43.30 977
+year 41.27 404
+opensourc 40.01 1451
+linux 37.60 429
+simul 35.67 463
+i 34.36 4681
+brows 31.61 323
+book 30.42 1031
+sql 30.06 428
+modern 29.99 467
+pdf 29.52 476
+made 28.85 2746
+faster 28.84 388
+css 28.76 755
+html5 28.35 430
+program 28.30 1051
+termin 27.82 690
+editor 27.70 835
+```
+
+Let’s group the top words into a few categories:
+- `im (I'm)`, `wrote`, `i`, `made`, `year`: These are all about storytelling and "building something." "Year" is mostly used in phrases like "I have been working on this for X years." HN is a place for indie hackers, and people love these stories.
+- `altern (alternative)`, `opensourc (open-source)`: As we all know, HN loves open-source projects.
+- `modern`, `faster`: Properties that HN developers appreciate.
+- `linux`, `css`, `html5`, `sql`, `termin (terminal)`, `editor`, `simul (simulator)`: Technologies that HN users love.
+
+You can already see a clear pattern here, which also matches my intuition. When creating a new title, try to incorporate as many of these words as possible.
+
+### Bad Keywords in Titles
+
+What about the reverse? Are there any words negatively correlated with the average score? Here’s the bottom 20 list of words:
+
+```
+Bottom 20 words by average score (word, avg_score, number_of_occurrences):
+anoth 6.22 358
+instagram 6.23 323
+crypto 6.27 437
+quick 6.90 314
+updat 6.91 477
+feedback 7.16 793
+tweet 7.37 436
+modul 7.45 310
+beta 7.86 464
+wordpress 7.94 336
+plugin 8.01 782
+android 8.07 1426
+event 8.11 534
+click 8.58 332
+notif 8.59 437
+feed 8.61 459
+swift 8.63 362
+start 8.67 396
+java 8.88 475
+aggreg 8.94 397
+busi 9.01 670
+```
+
+Let’s group these bottom words into a few categories:
+- `anoth (another)`, `update`, `beta`, `plugin`: Bore, no one cares; just another company trying to use HN for random stuff (interestingly, `another` is very similar to one of the top words, `alternative`. I guess the difference is that `another` implies doing the same thing, while `alternative` suggests doing something different, and is often linked with open-source).
+- `instagram`, `tweet`, `notif (notification)`, `feed`: Social media-related words.
+- `crypto`, `swift`, `java`, `android`, `wordpress`: Older technologies that HN users don’t favor.
+
+So, try to avoid these words in your title.
+
+## Conclusion
+- **HN is a tough place to launch, don't be too disappointed if your post doesn't gain traction.**
+- **Always post with a link.**
+- **Always post on weekends between 4 AM and 6 AM PT time.**
+- **Write titles that are as long as the length limit.**
+- **Write lowercase titles.**
+- **Use keywords like "I," "open-source," "alternative," and "modern" in your titles.**
+- **Avoid boring words like "another," "update," "beta," and "plugin."**
+
+## Some Notes:
+The analysis was not very rigorous, for example everything is calculated based on average score, which is very easily skewed by outliers. Also, the data is from 2011 to 2022, and I didn't do any time series analysis, so the results might not be up-to-date.
+
+
+## Appendix
+the top 100 and bottom 100 words by average score:
 
 ```
 Top 100 stems by average score(stem, avg_score, num_occurence):
@@ -185,4 +270,108 @@ it 21.194331983805668 1235
 lightweight 21.187772925764193 458
 machin 21.17655172413793 725
 javascript 21.147673314339983 2106
+```
+
+```
+Bottom 100 stems by average score (stem, avg_score, num_occurence):
+anoth 6.220670391061453 358
+instagram 6.232198142414861 323
+crypto 6.267734553775743 437
+quick 6.901273885350318 314
+updat 6.9077568134171905 477
+feedback 7.157629255989912 793
+tweet 7.3692660550458715 436
+modul 7.451612903225806 310
+beta 7.859913793103448 464
+wordpress 7.9375 336
+plugin 8.006393861892583 782
+android 8.068723702664796 1426
+event 8.114232209737828 534
+click 8.58433734939759 332
+notif 8.585812356979405 437
+feed 8.60566448801743 459
+swift 8.629834254143647 362
+start 8.669191919191919 396
+java 8.875789473684211 475
+aggreg 8.937027707808564 397
+busi 9.008955223880598 670
+newslett 9.068649885583524 437
+review 9.125850340136054 588
+templat 9.189907038512617 753
+golang 9.191747572815533 412
+resourc 9.268518518518519 432
+util 9.327543424317618 403
+media 9.39406779661017 472
+php 9.414868105515588 417
+state 9.438943894389439 303
+facebook 9.447140381282496 577
+slack 9.455542021924483 821
+integr 9.467455621301776 507
+io 9.489739323349973 1803
+content 9.64033850493653 709
+link 9.686206896551724 870
+twitter 9.865736704446382 1147
+place 9.895038167938932 524
+improv 9.91139240506329 395
+messag 9.918508287292818 724
+schedul 9.982558139534884 344
+stori 10.080078125 512
+packag 10.203866432337435 569
+group 10.230179028132993 391
+launch 10.339791356184799 671
+tracker 10.34516765285996 507
+chrome 10.370113493064313 1586
+task 10.387523629489603 529
+track 10.403614457831326 1328
+rate 10.468656716417911 335
+chang 10.581632653061224 392
+password 10.587064676616915 402
+organ 10.603092783505154 388
+keep 10.635910224438902 401
+custom 10.711453744493392 908
+multipl 10.800554016620499 361
+quickli 10.820754716981131 318
+fun 10.845930232558139 344
+team 10.938478747203579 894
+report 10.991404011461318 349
+typescript 11.085959885386819 349
+test 11.103148024112524 1493
+featur 11.151709401709402 468
+experi 11.15625 480
+saa 11.187203791469194 422
+market 11.187617260787993 533
+monitor 11.265330188679245 848
+rest 11.30316742081448 442
+send 11.305810397553516 654
+dynam 11.326860841423947 309
+social 11.453125 1280
+need 11.455188679245284 424
+more 11.672289156626507 830
+request 11.675355450236967 422
+random 11.75794621026895 409
+via 11.763684913217624 749
+analysi 11.81140350877193 456
+rail 11.883190883190883 351
+mobil 11.958650707290532 919
+curat 11.958925750394945 633
+bot 11.983164983164983 891
+extens 12.118320610687023 1834
+easili 12.123511904761905 672
+locat 12.173374613003096 323
+take 12.19128329297821 413
+convers 12.222873900293255 341
+price 12.274089935760172 467
+add 12.310526315789474 570
+list 12.33030303030303 1320
+nodej 12.373247033441208 927
+cloud 12.376288659793815 970
+cli 12.413502109704641 948
+tech 12.41653666146646 641
+get 12.451810584958217 1795
+travel 12.506702412868632 373
+share 12.553113553113553 1911
+view 12.600431965442764 463
+startup 12.609096901779829 1517
+docker 12.624012638230647 633
+digit 12.629191321499015 507
 ```

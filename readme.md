@@ -2,13 +2,19 @@
 
 ## A Failed Launch
 
-Last week, my friend Konsti built a really cool project called pgmock, an in-memory Postgres written in WebAssembly for unit testing. Having followed Hacker News (HN) for quite some time, I was confident this was something the HN community would love. However, when we launched it, it only garnered 3 upvotes (2 from ourselves). This was frustrating and hard to believe. Based on my intuition, this kind of project should have gained more attention. So, I hypothesized that we didn’t launch it correctly.
+Last week, my friend Konsti built a really cool project called [pgmock](https://github.com/stack-auth/pgmock), an in-memory Postgres written in WebAssembly for unit testing. Having followed Hacker News (HN) for quite some time, I was confident this was something the HN community would love. However, when we launched it, it only garnered 3 upvotes (2 from ourselves). This was frustrating and hard to believe. Based on my intuition, this kind of project should have gained more attention. So, I hypothesized that we didn’t launch it correctly.
 
 The natural question then was: what is a better way to launch? I decided to download the HN post dump and analyze it to see if there were any patterns. Surprisingly, I found some that were quite obvious and strong.
 
 We relaunched, applying some of these tricks. This time, it was a huge success, and we received more than 300 upvotes within 24 hours, making it the top post on Show HN for the day.
 
-That gave us a lot of confidence and motivation, we also relaunched our main project Stack Auth, which previously only got 2 upvotes, and it also became one of the top posts on Show HN for the day with 150+ upvotes.
+That gave us a lot of confidence and motivation, we also relaunched our main project [Stack Auth](https://github.com/stack-auth/stack), which previously only got 2 upvotes, and it also became one of the top posts on Show HN for the day with 150+ upvotes.
+
+Here are the HN posts if you are curious:
+- [pgmock, 2 upvotes](https://news.ycombinator.com/item?id=39928215)
+- [pgmock, 379 upvotes](https://news.ycombinator.com/item?id=39960537)
+- [Stack Auth, 3 upvotes](https://news.ycombinator.com/item?id=41092942)
+- [Stack Auth, 144 upvotes](https://news.ycombinator.com/item?id=40031090)
 
 ## Some Basic Statistics of HN Posts
 

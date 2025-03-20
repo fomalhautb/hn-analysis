@@ -2,7 +2,7 @@
 
 ## A Failed Launch
 
-Last week, my friend Konsti built a really cool project called [pgmock](https://github.com/stack-auth/pgmock), an in-memory Postgres written in WebAssembly for unit testing. Having followed Hacker News (HN) for quite some time, I was confident this was something the HN community would love. However, when we launched it, it only garnered 3 upvotes (2 from ourselves). This was frustrating and hard to believe. Based on my intuition, this kind of project should have gained more attention. So, I hypothesized that we didn’t launch it correctly.
+Last week, my friend Konsti built a really cool project called [pgmock](https://github.com/stack-auth/pgmock), an in-memory Postgres running in docker in an emulator written in WebAssembly running in browsers (yes that is a lot of layers). Having followed Hacker News (HN) for quite some time, I was confident the HN community would love this. However, when we launched it, it only garnered 3 upvotes (2 from ourselves). This was frustrating and hard to believe. Based on my intuition, this project should have gained more attention. So, I hypothesized that we didn’t launch it correctly.
 
 The natural question then was: what is a better way to launch? I decided to download the HN post dump and analyze it to see if there were any patterns. Surprisingly, I found some that were quite obvious and strong.
 
